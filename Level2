@@ -1,0 +1,108 @@
+########## 최대값과 최솟값 ##########
+https://school.programmers.co.kr/learn/courses/30/lessons/12939 
+1)
+def solution(s):
+    split_s = list(map(int, s.split(' ')))
+    
+    max_num = max(split_s)
+    min_num = min(split_s)
+    
+    return str(min_num) + " " + str(max_num) # return 시에는 str 사용
+
+
+########## 올바른 괄호 ##########
+https://school.programmers.co.kr/learn/courses/30/lessons/12909
+1)
+def solution(s):
+    cnt = 0
+    for i in s:
+        if i == '(':
+            cnt += 1
+        elif i == ')':
+            cnt -= 1
+            if cnt < 0:
+                return False      
+    if cnt == 0:
+        return True
+    else:
+        return False
+
+2)
+def solution(s):
+    stack_list = []
+    for i in s:
+        if i == '(': 
+            stack_list.append(i)     
+        else: # i == ')'인 경우
+            if stack_list == []: # 괄호가 ')'로 시작할 경우
+                return False
+            else:
+                stack_list.pop() # 리스트의 마지막 요소 삭제
+                
+    if len(stack_list) == 0:
+        return True
+    else:
+        return False
+
+########## 최솟값 만들기 ##########
+https://school.programmers.co.kr/learn/courses/30/lessons/12941
+1)
+def solution(A, B):
+    A.sort() # 아니면 new_A = sorted(A)
+    B.sort(reverse=True)
+    
+    sum = 0
+    for i in range(len(A)):
+        sum += (A[i] * B[i])
+        
+    return sum
+
+########## JadenCase 문자열 만들기 ##########
+https://school.programmers.co.kr/learn/courses/30/lessons/12951
+1)
+def solution(s):
+    split_list = s.split(" ") 
+    # split()    -> 연속된 공백은 하나의 공백으로 취급
+    # split(" ") -> 연속된 공백을 서로 다른 공백으로 취급
+    
+    word_2 = []
+    for word in split_list: # 공백을 기준으로 단어 단위로 쪼개기
+        word_1 = []
+        for j in range(len(word)): # 단어를 글자 단위로 쪼개기
+            if j == 0 and word[j].isalpha() == False: # 첫번쨰 글자가 숫자일 떄
+                word_1.append(word[0] + word[1:].lower()) # 나머지 단어를 소문자로
+                
+            elif j == 0 and word[j].isalpha() == True: # 첫번쨰 글자가 영어일 떄
+                word_1.append(word[0].upper() + word[1:].lower()) # 나머지 단어를 소문자로
+
+        word_2.append(' '.join(word_1)) # 쪼개진 글자를 단어로
+    return (' '.join(word_2)) # 쪼개진 단어를 문장으로
+        
+########## 이진 변환 반복하기 ########## ----------------------------------------------------- 다시 풀기
+https://school.programmers.co.kr/learn/courses/30/lessons/70129
+1) 
+def solution(s):
+    # while문의 조건이 참일 경우 계속 실행되는 반복문. 조건이 거짓이 되면 반복 중지
+    # ***중지 조건 찾고 reverse 시키기***
+    # s가 '1'이 되는 조건일 때 중지, 즉 s가 '1'이 아닐 떄까지 반복
+    
+    zero_cnt = 0 # 0 제거 횟수
+    binary_cnt = 0 # 이진변환 횟수
+    
+    while s != '1':
+        if '0' in s: # s에 0이 있을 경우
+            zero_cnt += s.count('0') # 0의 개수 세기
+            s = s.replace('0', '') # 0을 공백으로 바꾸기
+
+        len_s = len(s)
+        s = format(len_s, 'b') # 2진법으로 바꾸기
+        binary_cnt += 1
+
+    return [binary_cnt, zero_cnt]
+
+########## 숫자의 표현 ##########
+https://school.programmers.co.kr/learn/courses/30/lessons/12924
+1)
+
+    
+    

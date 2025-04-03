@@ -1,0 +1,314 @@
+########## 약수의 합 ##########
+def solution(n):
+    answer = 0
+    for i in range(1, n+1): # 1부터 n까지의 약수를 구하는 반복문
+        if n % i == 0: # n에서 i를 나눈 나머지가 0이라면
+            answer += i # 약수를 모두 더하기
+        
+    return answer
+
+########## 자릿수 더하기 ##########
+def solution(n):
+    # 1.
+    answer = 0
+    for i in str(n): # int를 str로 바꾼 후 각 글자 출력
+        answer += int(i)
+
+    # 2. 
+    answer = sum(map(int, str(n)))  # str(n)으로 숫자를 쪼개 str > map으로 형식 변화 > sum
+
+    return answer
+
+########## 자연수 뒤집어 배열로 만들기 ########## ------------------------------------------- 다시 풀기
+def solution(n):
+    reverse_n = str(n)[::-1] # [::-1] -> reverse 처리
+    
+    answer = []
+    for i in list(reverse_n):
+        answer.append(int(i))
+        
+    return answer
+
+########## 짝수와 홀수 ##########
+def solution(num):
+    if num % 2 == 1:
+        return 'Odd'
+    else:
+        return 'Even'
+
+########## 평균 구하기 ##########
+def solution(arr):
+    
+    divide_num = len(arr) # 평균을 구하기 위해 필요한 수
+    sum = 0 # 합
+    for i in arr:
+        sum += i
+    
+    answer = sum / divide_num
+    return answer
+
+########## x만큼 간격이 있는 n개의 숫자 ##########
+def solution(x, n):
+    answer = []
+    if x > 0:
+        for i in range(x, x*n+1, x): # range(start, end, step)
+            answer.append(i)
+    elif x < 0:
+        for i in range(x, x*n-1, x):
+            answer.append(i)
+    else: # x가 0일 떄
+        for i in range(x, n):
+            answer.append(x)
+            
+    return answer
+
+########## 나머지가 1이 되는 수 찾기 ##########
+def solution(n):
+    left_zero_list = []
+    for i in range(2, n): # n 자기자신과 1을 제외한 나머지 범위 
+        if n % i == 1:
+            left_zero_list.append(i)
+    
+    min_left_zero = min(left_zero_list)
+    
+    return min_left_zero
+
+########## 문자열을 정수로 바꾸기 ##########
+def solution(s):
+    answer = int(s)
+
+    return answer
+
+########## 두 정수 사이의 합 ##########
+def solution(a, b):
+    sum = 0
+    if a != b and a > b: # a와 b가 다르고 a가 b보다 클 떄
+        for i in range(b, a+1, 1):
+            sum += i
+    elif a!= b and a < b: # a와 b가 다르고 b가 a보다 클 때
+        for i in range(a, b+1, 1):
+            sum += i
+    else: # a와 b가 같을 때
+        sum = a
+    
+    return sum
+
+########## 문자열 내 p와 y의 개수 ##########
+def solution(s):
+    p_cnt = 0
+    y_cnt = 0
+    other_cnt = 0
+    for i in s:
+        if "p" in i or "P" in i: # p나 P가 있다면 p_cnt 1씩 증가
+            p_cnt += 1
+        elif "y" in i or "Y" in i: # y나 Y가 있다면 y_cnt 1씩 증가
+            y_cnt += 1
+    
+    # 단어에 p, P, y, Y가 없을 때에도 cnt는 모두 0이니 True 반환
+    if p_cnt == y_cnt:
+        return True
+    else:
+        return False
+
+########## 정수 내림차순으로 배치하기 ##########
+def solution(n):
+    new_n = sorted(str(n), reverse=True)
+    new_n_joined = ''.join(new_n)
+    new_n_joined_int = int(new_n_joined)
+    
+    return new_n_joined_int
+
+########## 정수 제곱근 판별 ##########
+def solution(n):
+    for i in range(1, n+1): # n이 1일 경우를 대비해서 n+1
+        remainder = n % i # 나머지
+        quotient = n // i # 몫
+        
+        if remainder == 0 and i == quotient: # 나머지가 1이고 나눈 값이 몫과 같다면
+            return (i+1) * (i+1)
+    else:
+        return -1
+
+########## 하샤드 수 ##########
+def solution(x):
+    list_x = list(map(int, str(x)))
+    sum = 0
+    for i in list_x:
+        sum += i
+    
+    if x % sum == 0:
+        return True
+    else:
+        return False
+
+########## 음양 더하기 ########## ------------------------------------------- 다시 풀기
+def solution(absolutes, signs):
+    answer = 0
+    for i in range(len(absolutes)):
+        if signs[i]: # if True
+            answer += absolutes[i]
+        else:
+            answer -= absolutes[i]
+            
+    return answer
+
+########## 없는 숫자 더하기 ##########
+def solution(numbers):
+    sum = 0
+    for i in range(0, 10): # 0부터 9까지의 숫자에 대해 반복
+        if i not in numbers: # 숫자가 하나씩 커지면서 numbers 리스트 안에 있는지 확인하고
+            sum += i # 없으면 sum에 누적
+    
+    return sum
+
+########## 나누어 떨어지는 숫자 배열 ##########
+def solution(arr, divisor):
+    zero_remainder = []
+    for i in arr:
+        if i % divisor == 0: # 나누어 떨어지는 숫자가 있다면 append
+            zero_remainder.append(i)
+    
+    zero_remainder.sort() # 오름차순 정렬
+    
+    if zero_remainder == []: # divisor로 나누어 떨어지는 element가 없을 때
+        return [-1]
+    else: 
+        return zero_remainder
+
+########## 서울에서 김서방 찾기 ########## ------------------------------------------- 다시 풀기
+def solution(seoul):
+    position = 0
+    for i in range(len(seoul)):
+        if "Kim" in seoul[i]:
+            position += i
+    
+    return f"김서방은 {str(position)}에 있다" # return f"{}"
+
+########## 콜라츠 추측 ########## ------------------------------------------- 다시 풀기
+def solution(num):
+    cnt = 0
+    while num != 1: # num이 1이 아니라면 계속 반복
+        if num % 2 == 0: # 짝수라면
+            num = num / 2
+        else: # 홀수라면
+            num = num * 3 + 1
+        cnt += 1
+    
+        if cnt == 500:
+            return -1
+            break
+    return cnt
+
+########## 핸드폰 번호 가리기 ########## ------------------------------------------- 다시 풀기
+def solution(phone_number):
+    star_num = []
+    for i in range(0, len(phone_number)-4):
+        star_num.append('*')
+    for j in range(len(phone_number)-4, len(phone_number)):
+        star_num.append(phone_number[j])
+    
+    joined_num = ''.join(star_num)
+    
+    return joined_num
+
+########## 가운데 글자 가져오기 ##########
+def solution(s):
+    list_s = list(s)
+    len_list_s = len(list_s)
+    
+    if len_list_s % 2 == 1: # s의 길이가 홀수일 떄
+        idx = len_list_s // 2
+        answer = s[idx]
+    else: # s의 길이가 짝수일 떄
+        idx_1 = len_list_s // 2
+        idx_2 = len_list_s // 2 - 1
+        answer = str(s[idx_2]) + str(s[idx_1])
+        
+    return answer
+
+########## 제일 작은 수 제거하기 ########## ------------------------------------------- 다시 풀기
+def solution(arr):
+    if len(arr) > 1:
+        arr.remove(min(arr))
+        return arr
+    else:
+        return [-1]
+
+########## 내적 ##########
+def solution(a, b):
+    sum = 0
+    for i in range(len(a)):
+        sum += (a[i] * b[i])
+    
+    return sum
+
+########## 수박수박수박수박수박수? ##########
+def solution(n):
+    ans = ''
+    for i in range(0, n):
+        if i % 2 == 0:
+            ans += '수'
+        else:
+            ans += '박'
+            
+    answer = ''.join(ans)
+    return answer
+
+########## 약수의 개수와 덧셈 ##########
+
+
+########## 문자열 내림차순으로 배치하기 ##########
+
+
+########## 부족한 금액 계산하기 ##########
+
+
+########## 문자열 다루기 기본 ##########
+
+
+########## 행렬의 덧셈 ##########
+
+
+########## 직사각형 별찍기 ##########
+
+
+########## 같은 숫자는 싫어 ##########
+
+
+########## 최대공약수와 최소공배수 ##########
+
+
+########## 예산 ##########
+
+
+########## 3진법 뒤집기 ##########
+
+
+########## 크기가 작은 부분 문자열 ##########
+
+
+########## 삼총사 ##########
+
+
+########## 이상한 문자 만들기 ##########
+
+
+########## 최소직사각형 ##########
+
+
+########## 시저 암호 ##########
+
+
+########## 	가장 가까운 같은 글자 ##########
+
+
+########## K번째수 ##########
+
+
+##########  ##########
+
+
+##########  ##########
+
+
+##########  ##########

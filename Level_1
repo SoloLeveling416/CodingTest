@@ -447,22 +447,231 @@ def solution(t, p):
             
     return cnt
 
-########## 삼총사 ##########
+########## 삼총사 ########## ------------------------------------------- 다시 풀기
+def solution(number):
+    answer = 0
+    for i in range(len(number)):
+        for j in range(i+1, len(number)):
+            for k in range(j+1, len(number)):
+                if (number[i] + number[j] + number[k] == 0):
+                    answer += 1
+                    
+    return answer
 
+########## 이상한 문자 만들기 ########## ------------------------------------------- 다시 풀기
+1)
+def solution(s):
+    list_s = list(s)
+    cnt_list = []
+    
+    cnt = -1
+    for i in list_s: # 공백을 기준으로 인덱스 순서대로 부여
+        if i != ' ':
+            cnt += 1
+        else:
+            cnt = -1
+        cnt_list.append(cnt)
+    print(cnt_list)
 
-########## 이상한 문자 만들기 ##########
+    for j in range(len(cnt_list)):
+        if cnt_list[j] % 2 == 0:
+            list_s[j] = list_s[j].upper()
+        else:
+            list_s[j] = list_s[j].lower()
+    
+    answer = ''.join(list_s)
+    
+    return answer
 
+2)
+def solution(s):
+    new_list = s.split()
+    
+    answer = ''
+    for i in new_list:
+        for j in range(len(i)):
+            if j % 2 == 0:
+                answer += i[j].upper()
+            else:
+                answer += i[j].lower()
+        answer += ' ' # 뒤에 공백
+
+    return answer[0:-1]
 
 ########## 최소직사각형 ##########
-
+def solution(sizes):
+    w = []
+    h = []
+    for num in zip(sizes):
+        num[0].sort(reverse=True)
+        for i in range(len(num)):
+            w.append(num[i][0])
+            h.append(num[i][1])
+            
+    w_max = max(w)
+    h_max = max(h)
+    
+    return w_max * h_max
 
 ########## 시저 암호 ##########
 
 
 ########## 	가장 가까운 같은 글자 ##########
+1)
+def solution(s):
+    sum = []
+    sum.append('-1')
+    
+    word = ''
+    word += s[0]
+    for i in range(1, len(s)):
+        # 중복된 단어가 없다면
+        if s[i] not in word:
+            word += s[i]
+            sum.append('-1')
+        
+        # 중복되는 단어가 있다면
+        else:
+            idx = []
+            for j in range(len(word)):
+                if s[i] == word[j]:
+                    idx.append(j)
+            real_idx = max(idx)
+            word += s[i]
+            num = i-real_idx
+            sum.append(str(num))
+            
+    answer = list(map(int, sum))
+    return answer
 
+2)
+def solution(s):
+    dict = {}
+    answer = []
+    for i in range(len(s)):
+        # 중복이 안된다면
+        if s[i] not in dict:
+            dict[s[i]] = i
+            answer.append(-1)
+        # 중복이 된다면
+        else:
+            answer.append(i-dict[s[i]])
+            dict[s[i]] = i
+    
+    return answer
 
 ########## K번째수 ##########
+def solution(array, commands):
+    answer = []
+    for lists in commands:
+        list_a = array[lists[0]-1 : lists[1]]
+        list_b = sorted(list_a)
+        
+        answer.append(list_b[lists[2]-1])
+        
+    return answer
+
+########## 두 개 뽑아서 더하기 ##########
+def solution(numbers):
+    sum_a = []
+    for i in range(len(numbers)):
+        for j in range(i+1, len(numbers)):
+            sum_a.append(numbers[i] + numbers[j])
+    sum_b = []
+    for k in sum_a:
+        if k not in sum_b:
+            sum_b.append(k)
+    sum_c = sorted(sum_b)
+            
+    return sum_c
+
+########## 숫자 문자열과 영단어 ########## ------------------------------------------- 다시 풀기
+def solution(s):
+    dict = {}
+    english = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    for i in range(0, 10):
+        dict[english[i]] = str(i)
+    
+    print(dict)
+    for key in dict:
+        s = s.replace(key, dict[key]) # s = s.replace(전, 후)
+        w
+    return int(s)
+
+########## 문자열 내 마음대로 정렬하기 ##########
+def solution(food):
+    temp = ''
+    for i in range(1, len(food)):
+        if food[i] // 2 > 0:
+            for j in range(food[i] // 2):
+                temp += str(i)
+    
+    reverse_temp = temp[::-1]
+    answer = temp + '0' + reverse_temp
+    
+    return answer
+
+########## 명예의 전당 (1) ########## ------------------------------------------- 다시 풀기
+
+
+########## 콜라 문제 ##########
+
+
+########## [1차] 비밀지도 ##########
+
+
+########## 카드 뭉치 ##########
+
+
+########## 추억 점수 ##########
+
+
+########## 폰켓몬 ##########
+
+
+########## 2016년 ##########
+
+
+########## 기사단원의 무기 ##########
+
+
+########## 모의고사 ##########
+
+
+########## 과일 장수 ##########
+
+
+########## 덧칠하기 ##########
+
+
+########## 소수 찾기 ##########
+
+
+########## 소수 만들기 ##########
+
+
+########## 옹알이 (2) ##########
+
+
+########## 실패율 ##########
+
+
+########## [PCCE 기출문제] 9번 / 지폐 접기 ##########
+
+
+##########  ##########
+
+
+##########  ##########
+
+
+##########  ##########
+
+
+##########  ##########
+
+
+##########  ##########
 
 
 ##########  ##########

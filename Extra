@@ -1,0 +1,217 @@
+https://school.programmers.co.kr/learn/challenges?tab=algorithm_practice_kit
+
+########## 해시 ##########
+===== 완주하지 못한 선수 =====
+def solution(participant, completion):
+    cnt = {}
+    for i in range(len(participant)): # 딕셔너리 생성해서 사람 수만큼 더해주기
+        if participant[i] not in cnt.keys():
+            cnt[participant[i]] = 1
+        else:
+            cnt[participant[i]] += 1
+            
+    for j in completion:
+        if j in cnt:
+            cnt[j] -= 1
+    
+    for k in cnt:
+        if cnt[k] > 0:
+            return k
+
+===== 폰켓몬 =====
+def solution(nums):
+    dict_nums = {}
+    for i in nums: # 중복일 경우 무조건 1, 누적 X
+        if i not in dict_nums:
+            dict_nums[i] = 1
+
+    if len(nums) // 2 > len(dict_nums):
+        return(len(dict_nums))
+    else:
+        return(len(nums) // 2)
+
+===== 전화번호 목록 =====
+def solution(phone_book):
+    phone_book.sort()
+    for i in range(len(phone_book)-1):
+        if phone_book[i]==phone_book[i+1][:len(phone_book[i])]:
+            return False
+    return True
+
+===== 의상 =====
+def solution(clothes):
+    clothes_dict = {}
+    for name, kind in clothes:
+        if kind not in clothes_dict.keys():
+            clothes_dict[kind] = [name]
+        else:
+            clothes_dict[kind] += [name]
+    
+    print(clothes_dict)
+    answer = 1
+    for k, v in clothes_dict.items():
+        answer *= (len(v) + 1)
+    answer -= 1
+        
+    return answer
+
+########## 스택/큐 ##########
+===== 같은 숫자는 싫어 =====
+def solution(arr):
+    answer = [arr[0]] # 첫번째는 무조건 중복이 아니니 미리 넣어놓기
+    for i in range(1, len(arr)):
+        if arr[i] != arr[i-1]:
+            answer.append(arr[i])
+
+    return answer
+
+===== 기능 개발 =====
+def solution(progresses, speeds):
+    answer = []
+    days = 0 # 날짜 세기
+    cnt = 0 # 완료된 기능
+    while len(progresses) > 0:
+    	# 기능의 진행상황과 그 동안 지난 날짜만큼의 speed를 구해서 더하기
+        if(progresses[0]+days*speeds[0])>=100:
+            # 완료되면 리스트에서 제거
+            progresses.pop(0)
+            speeds.pop(0)
+            # 완료된 기능 수
+            cnt += 1
+        else:
+        	# 만약 완료된 기능이 있다면 answer에 더해주고 0으로 초기화
+            if cnt > 0:
+                answer.append(cnt)
+                cnt = 0
+            # 완료된 기능이 없으면 days 추가
+            else:
+                days+=1
+    answer.append(cnt)
+    return answer
+
+===== 올바른 괄호 =====
+def solution(s):
+    stack = []
+    for i in range(len(s)):
+        if s[i] == '(':
+            stack.append(s[i])
+        else: # if s[i] == ')'
+            if stack != []: # 앞에 '('가 이미 있다면
+                stack.pop() # 한 쌍이 만들어졌으므로 pop
+            else:
+                return False
+    
+    if stack == []:
+        return True
+    else:
+        return False
+
+########## 힙(Heap) ##########
+===== 더 맵게 =====
+import heapq
+def solution(scoville, K):
+    answer = 0
+    heapq.heapify(scoville)
+    while scoville[0]<K:
+        new_s = heapq.heappop(scoville) + (heapq.heappop(scoville) * 2)
+        heapq.heappush(scoville,new_s)
+        answer += 1
+        if scoville[0]<K and len(scoville)==1:
+            return -1
+
+    return answer
+
+########## 정렬 ##########
+===== K번째 수 =====
+def solution(array, commands):
+    answer = []
+    
+    for list_a in commands:
+        range_list = array[list_a[0]-1 : list_a[1]]
+        range_list.sort()
+        
+        answer.append(range_list[list_a[2]-1])
+    return answer
+
+===== 가장 큰 수 =====
+def solution(numbers):
+    new_list = list(sorted(numbers, key=lambda x:str(x)*3, reverse=True))
+    answer = ''.join(map(str, new_list))
+    
+    if int(answer) == 0:
+        return '0'
+    else:
+        return answer
+
+########## 완전탐색 ##########
+===== 최소직사각형 =====
+def solution(sizes):
+    answer = 0
+    for i in sizes:
+        i.sort(reverse=True)
+        
+    w, h = [], []
+    for j in zip(sizes):
+        w.append(j[0][0])
+        h.append(j[0][1])
+    
+    answer = max(w) * max(h)
+    return answer
+
+===== 모의고사 =====
+def solution(answers):
+    
+    score  = [0, 0, 0]
+    student1 = [1, 2, 3, 4, 5] # 5
+    student2 = [2, 1, 2, 3, 2, 4, 2, 5] # 8
+    student3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5] # 10
+    
+    for i in range(len(answers)):
+        if answers[i] == student1[i%5]:
+            score[0] += 1
+        if answers[i] == student2[i%8]:
+            score[1] += 1
+        if answers[i] == student3[i%10]:
+            score[2] += 1
+    
+    print(score)
+    max_score = max(score)
+    
+    answer = []
+    for idx, value in enumerate(score):
+        if value == max_score:
+            answer.append(idx+1)
+            
+    return answer
+
+===== 소수 찾기 =====
+from itertools import permutations
+def solution(numbers):
+    answer = []                                   
+    nums = [n for n in numbers]                   # numbers를 하나씩 자른 것
+    per = []                                      
+    for i in range(1, len(numbers)+1):            # numbers의 각 숫자들을 순열로 모든 경우 만들기
+        per += list(permutations(nums, i))        # i개씩 순열조합
+    new_nums = [int(("").join(p)) for p in per]   # 각 순열조합을 하나의 int형 숫자로 변환
+
+    for n in new_nums:                            # 모든 int형 숫자에 대해 소수인지 판별
+        if n < 2:                                 # 2보다 작은 1,0의 경우 소수 아님
+            continue
+        check = True            
+        for i in range(2,int(n**0.5) + 1):        # n의 제곱근 보다 작은 숫자까지만 나눗셈
+            if n % i == 0:                        # 하나라도 나눠떨어진다면 소수 아님!
+                check = False
+                break
+        if check:
+            answer.append(n)                      # 소수일경우 answer 배열에 추가
+
+    return len(set(answer))                       # set을 통해 중복 제거 후 반환
+
+########## 탐욕법(Greedy) ##########
+=====  =====
+
+
+=====  =====
+
+
+=====  =====
